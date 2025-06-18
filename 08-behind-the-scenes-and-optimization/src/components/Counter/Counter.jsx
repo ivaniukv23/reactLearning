@@ -1,4 +1,4 @@
-import { useState, memo, useCallback, useMemo } from 'react';
+import {useState, memo, useCallback, useMemo, useEffect} from 'react';
 
 import IconButton from '../UI/IconButton.jsx';
 import MinusIcon from '../UI/Icons/MinusIcon.jsx';
@@ -33,6 +33,8 @@ const Counter = memo(function Counter({ initialCount }) {
       [initialCount]
   );
 
+
+
   // const [counter, setCounter] = useState(initialCount);
   const [counterChanges, setCounterChanges] = useState([{value: initialCount, id: Math.round(Math.random()*1000)}]);
 
@@ -40,6 +42,10 @@ const Counter = memo(function Counter({ initialCount }) {
       (prevCounter, counterChange) => prevCounter + counterChange.value,
       0
   );
+
+  useEffect(() => {
+    setCounterChanges([{value: initialCount, id: Math.round(Math.random()*1000)}])
+  }, [initialCount]);
 
   const handleDecrement = useCallback(function handleDecrement() {
     // setCounter((prevCounter) => prevCounter - 1);
